@@ -1,0 +1,16 @@
+sudo tar -czf ~/wordpress-files-backup.tar.gz /var/www/html
+
+aws s3 cp ~/wordpress-files-backup.tar.gz \
+s3://swe40006-wordpress-backup-dinoda/
+
+aws s3 ls s3://swe40006-wordpress-backup-dinoda/
+
+mkdir -p ~/wordpress-restore
+
+aws s3 cp \
+s3://swe40006-wordpress-backup-dinoda/wordpress-files-backup.tar.gz \
+~/wordpress-restore/
+
+cd ~/wordpress-restore
+
+tar -xzf wordpress-files-backup.tar.gz
